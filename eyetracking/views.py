@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Room
+from channels.layers import get_channel_layer
 
-
-@login_required
+@login_required(login_url='accounts/login/')
 def index(request):
     """
     Root page view. This is essentially a single-page app, if you ignore the
@@ -16,3 +16,6 @@ def index(request):
     return render(request, "index.html", {
         "rooms": rooms,
     })
+
+def upload_image(request):
+    return ''
