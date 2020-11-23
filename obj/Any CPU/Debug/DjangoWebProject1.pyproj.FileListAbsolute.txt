@@ -1,0 +1,1 @@
+C:\django-eyetracking\obj\Any CPU\Debug\DjangoWebProject1.pyproj.CoreCompileInputs.cache
