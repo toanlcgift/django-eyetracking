@@ -4,7 +4,7 @@ from channels.http import AsgiHandler
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 
-from eyetracking.consumers import ChatConsumer
+from eyetracking.consumers import AppConsumer
 
 
 # The channel routing defines what connections get handled by what consumers,
@@ -23,7 +23,7 @@ application = ProtocolTypeRouter({
     "websocket": AuthMiddlewareStack(
         URLRouter([
             # URLRouter just takes standard Django path() or url() entries.
-            path("chat/stream/", ChatConsumer),
+            path("stream/", AppConsumer),
         ]),
     ),
 
