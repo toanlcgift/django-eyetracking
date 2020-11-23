@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Room
 from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 from django.http import Http404, HttpResponseRedirect, StreamingHttpResponse
 import cv2
 from .gaze_tracking import GazeTracking
@@ -48,5 +49,13 @@ def upload_image(request):
               right_pupil = gaze.pupil_right_coords()
               cv2.putText(frame, "Left pupil:  " + str(left_pupil), (90, 130), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
               cv2.putText(frame, "Right pupil: " + str(right_pupil), (90, 165), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
+              channel_layer = get_channel_layer()
+              async_to_sync(channel_layer.group_send)("room-1", 
+                {
+                    "type": "chat.message",
+                    "username": "user",
+                    "message": text,
+                    "room_id": 1
+                })
 
         return StreamingHttpResponse('POST request')

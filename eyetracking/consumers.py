@@ -177,7 +177,7 @@ class AppConsumer(AsyncJsonWebsocketConsumer):
         # Send a message down to the client
         await self.send_json(
             {
-                "msg_type": settings.MSG_TYPE_MESSAGE,
+                "msg_type": 1,
                 "room": event["room_id"],
                 "username": event["username"],
                 "message": event["message"],
