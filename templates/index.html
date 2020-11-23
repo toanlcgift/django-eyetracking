@@ -22,6 +22,8 @@
 {% block extra_body %}
    
 <script>
+    let interval_value;
+
     $(function () {
         // Correctly decide between ws:// and wss://
         var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
@@ -61,11 +63,14 @@
         // Helpful debugging
         socket.onopen = function () {
             console.log("Connected to chat socket");
+            startup();
             socket.send(JSON.stringify({
                 "command": "join",
                 "room": 1
             }));
-            startup();
+            interval_value = setInterval(function () {
+                takepicture();
+            }, 1000 / 60);
         };
         socket.onclose = function () {
             console.log("Disconnected from chat socket");
