@@ -67,9 +67,9 @@
                 "command": "join",
                 "room": 1
             }));
-            interval_value = setInterval(function () {
-                takepicture();
-            }, 1000 / 60);
+            //interval_value = setInterval(function () {
+            //    takepicture();
+            //}, 1000 / 60);
         };
         socket.onclose = function () {
             console.log("Disconnected from chat socket");
@@ -183,6 +183,7 @@
                 {
                     //console.log(x);
                     document.getElementById("status").innerText = x;
+                    takepicture();
                 });
             });
 
