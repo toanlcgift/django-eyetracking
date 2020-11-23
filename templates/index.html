@@ -49,7 +49,6 @@
             } else if (data.message || data.msg_type != 0) {
                 switch (data.msg_type) {
                     case 1:
-                        document.getElementById("status").innerText = data.message;
                         break;
                     default:
                         console.log("Unsupported message type!");
@@ -164,22 +163,26 @@
                 fd.append('data', blob);
                 var token = '{{csrf_token}}';
                 $.ajax({
-                    xhr: function () {
-                        var xhr = new window.XMLHttpRequest();
-                        xhr.upload.addEventListener("progress", function (evt) {
-                            if (evt.lengthComputable) {
-                                var percentComplete = (evt.loaded / evt.total) * 100;
-                                console.log("percent: " + percentComplete);
-                            }
-                        }, false);
-                        return xhr;
-                    },
+                    //xhr: function () {
+                    //    var xhr = new window.XMLHttpRequest();
+                    //    xhr.upload.addEventListener("progress", function (evt) {
+                    //        if (evt.lengthComputable) {
+                    //            var percentComplete = (evt.loaded / evt.total) * 100;
+                    //            console.log("percent: " + percentComplete);
+                    //        }
+                    //    }, false);
+                    //    return xhr;
+                    //},
                     headers: { "X-CSRFToken": token },
                     type: 'POST',
                     url: "/upload/",
                     data: fd,
                     processData: false,
                     contentType: false
+                }).then(x =>
+                {
+                    //console.log(x);
+                    document.getElementById("status").innerText = x;
                 });
             });
 

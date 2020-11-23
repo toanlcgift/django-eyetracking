@@ -43,13 +43,14 @@ def upload_image(request):
               elif gaze.is_center():
                     text = "Looking center"
 
-              channel_layer = get_channel_layer()
-              async_to_sync(channel_layer.group_send)("room-1", 
-                {
-                    "type": "chat.message",
-                    "username": "user",
-                    "message": text,
-                    "room_id": 1
-                })
+              return StreamingHttpResponse(text)
+              #channel_layer = get_channel_layer()
+              #async_to_sync(channel_layer.group_send)("room-1", 
+              #  {
+              #      "type": "chat.message",
+              #      "username": "user",
+              #      "message": text,
+              #      "room_id": 1
+              #  })
 
         return StreamingHttpResponse('POST request')
