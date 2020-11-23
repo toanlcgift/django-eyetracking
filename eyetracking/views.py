@@ -43,9 +43,12 @@ def upload_image(request):
               elif gaze.is_center():
                     text = "Looking center"
 
-              return StreamingHttpResponse(text)
+              left_pupil = gaze.pupil_left_coords()
+              right_pupil = gaze.pupil_right_coords()
+
+              return StreamingHttpResponse(text + " Left pupil:  " + str(left_pupil) + " Right pupil: " + str(right_pupil))
               #channel_layer = get_channel_layer()
-              #async_to_sync(channel_layer.group_send)("room-1", 
+              #async_to_sync(channel_layer.group_send)("room-1",
               #  {
               #      "type": "chat.message",
               #      "username": "user",
