@@ -40,7 +40,13 @@
     <Compile Include="eyetracking\admin.py" />
     <Compile Include="eyetracking\apps.py" />
     <Compile Include="eyetracking\consumers.py" />
+    <Compile Include="eyetracking\example.py" />
     <Compile Include="eyetracking\exceptions.py" />
+    <Compile Include="eyetracking\gaze_tracking\calibration.py" />
+    <Compile Include="eyetracking\gaze_tracking\eye.py" />
+    <Compile Include="eyetracking\gaze_tracking\gaze_tracking.py" />
+    <Compile Include="eyetracking\gaze_tracking\pupil.py" />
+    <Compile Include="eyetracking\gaze_tracking\__init__.py" />
     <Compile Include="eyetracking\migrations\0001_initial.py" />
     <Compile Include="eyetracking\migrations\__init__.py" />
     <Compile Include="eyetracking\models.py" />
@@ -57,6 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="eyetracking\" />
+    <Folder Include="eyetracking\gaze_tracking\" />
+    <Folder Include="eyetracking\gaze_tracking\trained_models\" />
+    <Folder Include="eyetracking\gaze_tracking\__pycache__\" />
     <Folder Include="eyetracking\migrations\" />
     <Folder Include="app\" />
     <Folder Include="static\" />
@@ -66,6 +75,12 @@
     <Folder Include="templates\registration\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="eyetracking\gaze_tracking\trained_models\shape_predictor_68_face_landmarks.dat" />
+    <Content Include="eyetracking\gaze_tracking\__pycache__\calibration.cpython-37.pyc" />
+    <Content Include="eyetracking\gaze_tracking\__pycache__\eye.cpython-37.pyc" />
+    <Content Include="eyetracking\gaze_tracking\__pycache__\gaze_tracking.cpython-37.pyc" />
+    <Content Include="eyetracking\gaze_tracking\__pycache__\pupil.cpython-37.pyc" />
+    <Content Include="eyetracking\gaze_tracking\__pycache__\__init__.cpython-37.pyc" />
     <Content Include="static\css\style.css" />
     <Content Include="static\js\jquery-1.12.2.min.js" />
     <Content Include="static\js\reconnecting-websocket.min.js" />
