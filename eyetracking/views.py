@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Room
 from channels.layers import get_channel_layer
+from django.http import Http404, HttpResponseRedirect, StreamingHttpResponse
 
 @login_required(login_url='accounts/login/')
 def index(request):
@@ -17,5 +18,9 @@ def index(request):
         "rooms": rooms,
     })
 
+@login_required(login_url='accounts/login/')
 def upload_image(request):
-    return ''
+        if request.method == 'POST':
+                file = request.FILES['data']
+
+        return StreamingHttpResponse('POST request')

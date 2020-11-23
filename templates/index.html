@@ -5,20 +5,22 @@
 
 {% block content %}
 
-    <!--<img id="image" src="{% static 'sample.jpeg' %}" height="300" width="300"/>-->
- <div class="camera">
+   
+
+<!--<img id="image" src="{% static 'sample.jpeg' %}" height="300" width="300"/>-->
+<div class="camera">
     <video id="video">Video stream not available.</video>
-    <button id="startbutton">Take photo</button> 
-  </div>
-  <canvas id="canvas">
-  </canvas>
- 
+    <button id="startbutton">Take photo</button>
+</div>
+<canvas id="canvas"></canvas>
+
 
 {% endblock %}
 
 
 {% block extra_body %}
-    <script>
+   
+<script>
     $(function () {
         // Correctly decide between ws:// and wss://
         var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
@@ -129,7 +131,7 @@
         context.fillRect(0, 0, canvas.width, canvas.height);
 
         var data = canvas.toDataURL('image/png');
-        photo.setAttribute('src', data);
+        //photo.setAttribute('src', data);
     }
 
     // Capture a photo by fetching the current contents of the video
@@ -144,8 +146,30 @@
             canvas.width = width;
             canvas.height = height;
             context.drawImage(video, 0, 0, width, height);
-            var data = canvas.toDataURL('image/png');
-            photo.setAttribute('src', data);
+            canvas.toBlob(function (blob) {
+                var fd = new FormData();
+                fd.append('data', blob);
+                var token = '{{csrf_token}}';
+                $.ajax({
+                    xhr: function () {
+                        var xhr = new window.XMLHttpRequest();
+                        xhr.upload.addEventListener("progress", function (evt) {
+                            if (evt.lengthComputable) {
+                                var percentComplete = (evt.loaded / evt.total) * 100;
+                                console.log("percent: " + percentComplete);
+                            }
+                        }, false);
+                        return xhr;
+                    },
+                    headers: { "X-CSRFToken": token },
+                    type: 'POST',
+                    url: "/upload/",
+                    data: fd,
+                    processData: false,
+                    contentType: false
+                });
+            });
+
         } else {
             clearphoto();
         }
